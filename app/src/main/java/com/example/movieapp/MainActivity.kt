@@ -2,8 +2,10 @@ package com.example.movieapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -37,6 +39,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.ui.theme.MovieAppTheme
+import kotlin.math.log
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,19 +131,25 @@ fun MainContent(
     ) {
         LazyColumn {
             items(items = movieList) {
-                MovieRow(movie = it)
+                MovieRow(movie = it){
+                    movie ->
+                    Log.d("TAG", "MainContent: $movie")
+                }
             }
         }
     }
 }
 
 @Composable
-fun MovieRow(movie: String) {
+fun MovieRow(movie: String, onItemClick: (String) -> Unit = {} ) {
     Card(
         modifier = Modifier
             .padding(4.dp)
             .fillMaxWidth()
-            .height(130.dp),
+            .height(130.dp)
+            .clickable {
+                onItemClick(movie)
+            },
         shape = RoundedCornerShape(corner = CornerSize(12.dp)),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
