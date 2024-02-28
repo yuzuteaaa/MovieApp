@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
-fun DetailScreen(navController: NavController) {
-    Text(text = "Hello World")
+fun DetailScreen(navController: NavController,
+                 movieData: String?) {
+    Text(text = movieData.toString())
 }
