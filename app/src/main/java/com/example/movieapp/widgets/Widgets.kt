@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -96,7 +97,7 @@ fun MovieRow(movie: Movie = getMovie()[0], onItemClick: (String) -> Unit = {}) {
                     style = MaterialTheme.typography.titleSmall
                 )
                 AnimatedVisibility(visible = expanded) {
-                    Column() {
+                    Column {
                         Text(buildAnnotatedString {
                             withStyle(style = SpanStyle(color = Color.DarkGray,
                                 fontSize = 13.sp)){
@@ -104,11 +105,15 @@ fun MovieRow(movie: Movie = getMovie()[0], onItemClick: (String) -> Unit = {}) {
                             }
                             withStyle(style = SpanStyle(color = Color.DarkGray,
                                 fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold)) {
+                                fontWeight = FontWeight.Light)) {
                                 append(movie.plot)
                             }
 
-                        })
+                        }, modifier = Modifier.padding(6.dp))
+                        Divider(modifier = Modifier.padding(3.dp))
+                        Text(text = "Director: ${movie.director}", style = MaterialTheme.typography.labelSmall)
+                        Text(text = "Actors: ${movie.actors}", style = MaterialTheme.typography.labelSmall)
+                        Text(text = "Rating: ${movie.rating}", style = MaterialTheme.typography.labelSmall)
                     }
                 }
                 Icon(

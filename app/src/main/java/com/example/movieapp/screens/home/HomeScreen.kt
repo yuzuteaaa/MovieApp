@@ -26,7 +26,7 @@ fun HomeScreen(navController: NavController) {
     Scaffold(topBar = {
         TopAppBar(title = {
             Text("Movies")
-        }, colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Magenta))
+        }, colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Transparent))
     }) {
         MainContent(navController = navController, paddingValues = it)
     }

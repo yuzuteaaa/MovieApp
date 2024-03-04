@@ -1,7 +1,6 @@
 package com.example.movieapp.screens.details
 
 import android.annotation.SuppressLint
-import android.widget.Space
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.movieapp.model.getMovie
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -34,37 +34,43 @@ import androidx.navigation.NavController
 @Composable
 fun DetailScreen(
     navController: NavController,
-    movieData: String?
+    movieId: String?
 ) {
+    val newMovieList = getMovie().filter { movie ->
+        movie.id == movieId
+    }
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Row (horizontalArrangement = Arrangement.Start){
+                Row(horizontalArrangement = Arrangement.Start) {
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Arrow Back",
                         modifier = Modifier.clickable { navController.popBackStack() })
                     Spacer(modifier = Modifier.width(125.dp))
                     Text("Movies")
                 }
-            }, colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Magenta))
+            }, colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Transparent))
         }
     ) {
-            Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
         ) {
-            Text(text = movieData.toString(), style = MaterialTheme.typography.headlineMedium)
-            Button(onClick = {
-                navController.popBackStack()
-            }) {
-                Text(text = "Go Back")
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = newMovieList[0].title,
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Button(onClick = {
+                    navController.popBackStack()
+                }) {
+                    Text(text = "Go Back")
+                }
             }
         }
-    }
     }
 
 }
